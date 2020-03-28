@@ -1,27 +1,27 @@
+import { ThemeProvider } from '@material-ui/core/styles';
+
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import green from '@material-ui/core/colors/green';
+import { Provider as StoreProvider } from 'react-redux';
 
 import SocketProvider from './components/SocketProvider';
 import Routes from './routes';
-import './styles.scss';
+import { store } from "./utils/store";
+import { theme } from "./utils/theme";
 
-const theme = createMuiTheme({
-    palette: {
-        primary: green,
-    }
-});
+import './styles.scss';
 
 const App = () => (
     <div className='app'>
-        <SocketProvider >
-            <ThemeProvider theme={ theme }>
-                <Router>
-                    <Routes />
-                </Router>
-            </ThemeProvider>
-        </SocketProvider>
+        <StoreProvider store={ store }>
+            <SocketProvider>
+                <ThemeProvider theme={ theme }>
+                    <Router>
+                        <Routes />
+                    </Router>
+                </ThemeProvider>
+            </SocketProvider>
+        </StoreProvider>
     </div>
 );
 

@@ -5,13 +5,17 @@ import Typography from '@material-ui/core/Typography';
 
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+
+import useSocket from '../../hooks/useSocket';
+import { updateRoomId } from "../../redux/actions";
 
 import useStyles from './styles';
-import useSocket from '../../hooks/useSocket';
 
 const MainScreen = () => {
-    const classes = useStyles();
     const socket = useSocket();
+    const dispatch = useDispatch();
+    const classes = useStyles();
     const history = useHistory();
 
     const createRoomHandler = () => {
@@ -32,6 +36,7 @@ const MainScreen = () => {
     };
 
     socket.on('room joined successfully', (roomId) => {
+        dispatch(updateRoomId(roomId));
         history.push(`/room?id=${roomId}`);
     });
 

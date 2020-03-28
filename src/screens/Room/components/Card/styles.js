@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
         margin: '0',
         fontSize: '30px',
     },
+    chosen: {
+        backgroundColor: 'red',
+    },
 }));
 
 export default useStyles;
