@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import io from 'socket.io-client';
 
-const SOCKET_URL = 'http://localhost:4101';
+const SOCKET_URL = 'https://cbs-scrum-poker-server.herokuapp.com';
 const SocketContext = createContext();
 
 const SocketProvider = ({ children }) => {
