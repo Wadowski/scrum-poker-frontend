@@ -1,5 +1,6 @@
 import CardComponent from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Typography from '@material-ui/core/Typography';
 
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
@@ -30,13 +31,17 @@ const Card = ({ value, disabled }) => {
             [classes.content]: true,
             [classes.chosen]: isChosen,
         }) }>
-            {value}
+            <Typography variant='body2' component='p'>
+                {value}
+            </Typography>
         </CardActionArea>
     );
 
     const disabledCard = () => (
         <div className={ classes.content }>
-            {value}
+            <Typography variant='body2' component='p'>
+                {value}
+            </Typography>
         </div>);
 
     return (

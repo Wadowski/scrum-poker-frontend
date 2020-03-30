@@ -5,6 +5,7 @@ const useStyles = makeStyles(theme => ({
         width: '60px',
         height: '100px',
         margin: '8px',
+        borderRadius: 8,
     },
     content: {
         width: '100%',
@@ -14,10 +15,10 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         alignItems: 'center',
         margin: '0',
-        fontSize: '30px',
+        fontSize: '32px',
     },
     chosen: {
-        backgroundColor: 'red',
+        backgroundColor: theme.palette.success.main,
     },
 }));
 

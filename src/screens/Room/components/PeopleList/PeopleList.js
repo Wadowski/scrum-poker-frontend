@@ -1,3 +1,5 @@
+import Typography from '@material-ui/core/Typography';
+
 import React from 'react';
 
 import Person from '../Person';
@@ -8,10 +10,18 @@ const PeopleList = ({ people }) => {
     const classes = useStyle();
 
     return (
-        <div className={ classes.peopleList }>
-            {people.map(person => (
-                <Person { ...person } />
-            ))}
+        <div>
+            <Typography
+                component='p'
+                variant='h5'
+            >
+                Votes summary
+            </Typography>
+            <div className={ classes.peopleList }>
+                {people.map(person => (
+                    <Person { ...person } />
+                ))}
+            </div>
         </div>
     );
 }

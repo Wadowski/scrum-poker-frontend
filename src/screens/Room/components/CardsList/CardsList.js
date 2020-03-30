@@ -1,18 +1,29 @@
+import Typography from '@material-ui/core/Typography';
+
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 
 import Card from '../Card';
 import useStyle from './styles';
 
-const CardsList = ({ valueList = [1,2,3,5,8,13,20]}) => {
+const DEFAULT_CARDS_LIST = ['1/2', '1', '2', '3', '5', '8', '13', '20', '100'];
+
+const CardsList = ({ valueList = DEFAULT_CARDS_LIST}) => {
     const classes = useStyle();
 
     return (
-        <Paper elevation={ 0 } className={ classes.root }>
-            {valueList.map((value => (
-                <Card value={ value } />
-            )))}
-        </Paper>
+        <div className={ classes.root }>
+            <Typography
+                component='p'
+                variant='h5'
+            >
+                Your vote
+            </Typography>
+            <div className={ classes.cardsList }>
+                {valueList.map((value => (
+                    <Card value={ value } />
+                )))}
+            </div>
+        </div>
     );
 }
 
