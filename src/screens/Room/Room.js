@@ -10,8 +10,9 @@ import qs from 'query-string';
 import CardsList from './components/CardsList';
 import PeopleList from './components/PeopleList';
 import useSocket from '../../hooks/useSocket';
-import { getRoomId } from "../../redux/selectors";
-import { updateChosenCard } from "../../redux/actions";
+import { getRoomId, getPeople } from "../../redux/room/selectors";
+import { updateChosenCard } from "../../redux/card/actions";
+import { updateRoom } from "../../redux/room/actions";
 
 import useStyles from './styles';
 
@@ -20,10 +21,10 @@ const RoomScreen = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
-    const [people, makePeople] = useState([]);
     const [userDetails, makeUserDetails] = useState({});
     const [votingStarted, makeVotingStarted] = useState(false);
     const roomId = useSelector(getRoomId);
+    const people = useSelector(getPeople);
     const queryParams = qs.parse(window.location.search);
 
     if (!queryParams.id) {
@@ -54,10 +55,20 @@ const RoomScreen = () => {
 
     const isAdmin = () => userDetails && userDetails.roles && userDetails.roles.includes('admin');
 
-    const updatePeople = (people) => makePeople(people);
+    const updatePeople = (people) => {
+        dispatch(updateRoom({ people }));
+    };
+    const cardsUpdate = (room) => {
+        dispatch(updateRoom(room));
+    };
 
     socket.on('room people update', updatePeople);
     socket.on('cards update', updatePeople);
+    socket.on('room update', cardsUpdate);
+    socket.on('vote status update', (status) => {
+        dispatch(updateChosenCard({ value: 0 }));
+        dispatch(updateRoom({ voteStarted: status }));
+    });
 
     return (
         <Paper className={ classes.root } elevation={ 3 }>

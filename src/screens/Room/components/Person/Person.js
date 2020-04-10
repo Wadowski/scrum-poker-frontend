@@ -6,12 +6,12 @@ import Card from '../Card';
 
 import useStyle from './styles';
 
-const Person = ({ name, cardValue }) => {
+const Person = ({ name, card = {} }) => {
     const classes = useStyle();
 
     return (
         <div className={ classes.person }>
-            <Card value={ cardValue } disabled />
+            <Card value={ card.value } position={ card.position } disabled />
             <Typography variant='body1' component='p'>
                 {name}
             </Typography>

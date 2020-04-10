@@ -7,29 +7,32 @@ import { useSelector, useDispatch } from "react-redux";
 import classnames from 'classnames';
 
 import { useSocket } from '../../../../hooks/useSocket';
-import { getCardValue, getRoomId } from "../../../../redux/selectors";
-import { updateChosenCard } from "../../../../redux/actions";
+import { getCardValue } from "../../../../redux/card/selectors";
+import { getRoomId, isVoteStarted } from "../../../../redux/room/selectors";
+import { updateChosenCard } from "../../../../redux/card/actions";
 
 import useStyle from './styles';
 
-const Card = ({ value, disabled }) => {
+const Card = ({ value, position, disabled }) => {
     const socket = useSocket();
     const dispatch = useDispatch();
     const classes = useStyle();
     const chosenCardValue = useSelector(getCardValue);
     const roomId = useSelector(getRoomId);
+    const voteStarted = useSelector(isVoteStarted);
 
     const isChosen = chosenCardValue === value;
 
     const onClickHandler = () => {
-        dispatch(updateChosenCard(value));
-        socket.emit('card chosen', roomId, value);
+        dispatch(updateChosenCard({ value, position }));
+        socket.emit('card chosen', roomId, { value, position });
     };
 
     const actionCard = () => (
-        <CardActionArea onClick={ onClickHandler } href="#" className={ classnames({
+        <CardActionArea onClick={ onClickHandler } disabled={ !voteStarted } href="#" className={ classnames({
             [classes.content]: true,
             [classes.chosen]: isChosen,
+            [classes.disabled]: !voteStarted,
         }) }>
             <Typography variant='body2' component='p'>
                 {value}

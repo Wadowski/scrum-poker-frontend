@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 
 import useSocket from '../../hooks/useSocket';
-import { updateRoomId } from "../../redux/actions";
+import { updateRoom } from "../../redux/room/actions";
 
 import useStyles from './styles';
 
@@ -36,7 +36,7 @@ const MainScreen = () => {
     };
 
     socket.on('room joined successfully', (roomId) => {
-        dispatch(updateRoomId(roomId));
+        dispatch(updateRoom({ id: roomId }));
         history.push(`/room?id=${roomId}`);
     });
 

@@ -1,2 +1,0 @@
-export const CARD_VALUE_UPDATE = 'CARD_VALUE_UPDATE';
-export const UPDATE_ROOM_ID = 'UPDATE_ROOM_ID';

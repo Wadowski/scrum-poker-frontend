@@ -5,7 +5,19 @@ import React from 'react';
 import Card from '../Card';
 import useStyle from './styles';
 
-const DEFAULT_CARDS_LIST = ['1/2', '1', '2', '3', '5', '8', '13', '20', '100'];
+const card = (value, position) => ({ value, position });
+
+const DEFAULT_CARDS_LIST = [
+    card('1/2', 1),
+    card('1', 2),
+    card('2', 3),
+    card('3', 4),
+    card('5', 5),
+    card('8', 6),
+    card('13', 7),
+    card('20', 8),
+    card('100', 9),
+];
 
 const CardsList = ({ valueList = DEFAULT_CARDS_LIST}) => {
     const classes = useStyle();
@@ -19,8 +31,8 @@ const CardsList = ({ valueList = DEFAULT_CARDS_LIST}) => {
                 Your vote
             </Typography>
             <div className={ classes.cardsList }>
-                {valueList.map((value => (
-                    <Card value={ value } />
+                {valueList.map(((card) => (
+                    <Card value={ card.value } position={ card.position } />
                 )))}
             </div>
         </div>

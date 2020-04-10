@@ -20,6 +20,10 @@ const useStyles = makeStyles(theme => ({
     chosen: {
         backgroundColor: theme.palette.success.main,
     },
+    disabled: {
+        backgroundColor: '#f0f0f0',
+        color: '#9b9b9b',
+    },
 }));
 
 export default useStyles;
