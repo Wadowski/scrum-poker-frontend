@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -10,8 +9,7 @@ import Button from "@material-ui/core/Button";
 
 import useStyle from './styles';
 
-const NameModal = ({ open, onClose, onSubmit }) => {
-    const history = useHistory();
+const NameModal = ({ open, onClose, onLeave, onSubmit }) => {
     const classes = useStyle();
     const [name, makeName] = useState(null);
 
@@ -27,8 +25,8 @@ const NameModal = ({ open, onClose, onSubmit }) => {
     };
 
     const handleClose = () => {
+        onLeave();
         onClose();
-        history.push('/');
     };
 
     return (

@@ -130,6 +130,7 @@ const RoomScreen = () => {
             <NameModal
                 open={ nameModalOpen }
                 onClose={ () => { makeNameModalOpen(false); } }
+                onLeave={ leaveHandler }
                 onSubmit={ nameSubmitHandler }
             />
         </Paper>
