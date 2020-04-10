@@ -20,5 +20,8 @@ export const useEmit = (options = {}) => {
         return emitEvent(socket);
     }
 
-    return () => { console.log('emit used on non initialized socket'); };
+    return () => {
+        console.log('emit used on non initialized socket');
+        return { error: true };
+    };
 };

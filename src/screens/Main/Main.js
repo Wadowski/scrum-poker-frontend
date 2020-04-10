@@ -13,6 +13,8 @@ import { updateRoom } from "../../redux/room/actions";
 
 import useStyles from './styles';
 
+const PING_INTERVAL = 1000*10;
+
 const MainScreen = () => {
     const socket = useSocket();
     const emit = useEmit();
@@ -33,15 +35,23 @@ const MainScreen = () => {
     };
 
     useEffect(() => {
+        if (emit && !emit().error) {
+            setInterval(() => {
+                emit('test');
+            }, PING_INTERVAL);
+        }
+    }, [emit]);
+
+    useEffect(() => {
         if (socket) {
             socket.on('room joined successfully', (roomId) => {
                 dispatch(updateRoom({ id: roomId }));
                 history.push(`/room?id=${roomId}`);
             });
-
             socket.on('room not joined successfully', () => {
                 console.log('room not joined successfully');
             });
+            socket.on('test', () => {});
         }
     }, [socket]);
 
