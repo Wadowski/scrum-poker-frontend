@@ -65,7 +65,7 @@ const MainScreen = () => {
                     or
                 </Typography>
                 <div className={ classes.joinRoom }>
-                    <TextField id="session-id" label="Session ID" />
+                    <TextField id="session-id" label="Room number" />
                     <Button
                         variant="contained"
                         color="primary"
