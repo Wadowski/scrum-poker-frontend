@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Typography from '@material-ui/core/Typography';
 
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -38,7 +39,7 @@ const RoomScreen = () => {
 
     if (!queryParams.id) {
         history.push('/');
-    };
+    }
 
     const leaveHandler = () => {
         emit('leave room', roomId);
@@ -92,6 +93,12 @@ const RoomScreen = () => {
 
     return (
         <Paper className={ classes.root } elevation={ 3 }>
+            <Typography component="h5" variant="h5" className={ classes.header }>
+                Welcome {userDetails.name}
+            </Typography>
+            <Typography component="h6" variant="h6" className={ classes.header }>
+                Room number {roomId}
+            </Typography>
             {isAdmin() &&
             <ButtonGroup>
                 <Button
@@ -101,7 +108,7 @@ const RoomScreen = () => {
                     href=""
                     onClick={ startVotingHandler }
                 >
-                    Start
+                    Start voting
                 </Button>
                 <Button
                     variant="contained"

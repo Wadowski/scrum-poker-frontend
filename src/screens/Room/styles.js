@@ -24,6 +24,9 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    header: {
+        marginTop: 16,
+    },
 }));
 
 export default useStyles;
