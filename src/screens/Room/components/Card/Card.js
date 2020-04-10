@@ -6,7 +6,7 @@ import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import classnames from 'classnames';
 
-import { useSocket } from '../../../../hooks/useSocket';
+import { useEmit } from '../../../../hooks/useEmit';
 import { getCardValue } from "../../../../redux/card/selectors";
 import { getRoomId, isVoteStarted } from "../../../../redux/room/selectors";
 import { updateChosenCard } from "../../../../redux/card/actions";
@@ -14,9 +14,10 @@ import { updateChosenCard } from "../../../../redux/card/actions";
 import useStyle from './styles';
 
 const Card = ({ value, position, disabled }) => {
-    const socket = useSocket();
+    const emit = useEmit();
     const dispatch = useDispatch();
     const classes = useStyle();
+
     const chosenCardValue = useSelector(getCardValue);
     const roomId = useSelector(getRoomId);
     const voteStarted = useSelector(isVoteStarted);
@@ -25,7 +26,7 @@ const Card = ({ value, position, disabled }) => {
 
     const onClickHandler = () => {
         dispatch(updateChosenCard({ value, position }));
-        socket.emit('card chosen', roomId, { value, position });
+        emit('card chosen', roomId, { value, position });
     };
 
     const actionCard = () => (

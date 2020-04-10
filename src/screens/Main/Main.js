@@ -3,46 +3,48 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 
-import useSocket from '../../hooks/useSocket';
+import { useSocket } from '../../hooks/useSocket';
+import { useEmit } from '../../hooks/useEmit';
 import { updateRoom } from "../../redux/room/actions";
 
 import useStyles from './styles';
 
 const MainScreen = () => {
     const socket = useSocket();
+    const emit = useEmit();
     const dispatch = useDispatch();
     const classes = useStyles();
     const history = useHistory();
 
     const createRoomHandler = () => {
-        const name = document.getElementById('name').value;
-
-        if (name) {
-            socket.emit('create room', name);
-        }
+        emit('create room');
     };
 
     const joinRoomHandler = () => {
         const sessionId = document.getElementById('session-id').value;
-        const name = document.getElementById('name').value;
 
-        if (name && sessionId) {
-            socket.emit('join room', sessionId, name);
+        if (sessionId) {
+            emit('join room', sessionId);
         }
     };
 
-    socket.on('room joined successfully', (roomId) => {
-        dispatch(updateRoom({ id: roomId }));
-        history.push(`/room?id=${roomId}`);
-    });
+    useEffect(() => {
+        if (socket) {
+            socket.on('room joined successfully', (roomId) => {
+                dispatch(updateRoom({ id: roomId }));
+                history.push(`/room?id=${roomId}`);
+            });
 
-    socket.on('room not joined successfully', () => {
-        console.log('room not joined successfully');
-    });
+            socket.on('room not joined successfully', () => {
+                console.log('room not joined successfully');
+            });
+        }
+    }, [socket]);
+
 
     return (
         <Paper elevation={ 3 } className={ classes.root }>
@@ -50,7 +52,6 @@ const MainScreen = () => {
                 Scrum poker
             </Typography>
             <div className={ classes.actions }>
-                <TextField id="name" label="Enter your name" className={ classes.name } />
                 <Button
                     variant="contained"
                     color="primary"
@@ -77,6 +78,6 @@ const MainScreen = () => {
             </div>
         </Paper>
     );
-}
+};
 
 export default MainScreen;

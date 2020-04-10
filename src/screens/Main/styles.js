@@ -4,7 +4,7 @@ const useStyles = makeStyles(theme => ({
     root: {
         maxWidth: '900px',
         minWidth: '320px',
-        minHeight: '350px',
+        minHeight: '300px',
         display: 'flex',
         flexFlow: 'column',
         justifyContent: 'space-between',
@@ -24,9 +24,6 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         minHeight: '48px',
-    },
-    name: {
-        paddingBottom: '32px',
     },
 }));
 

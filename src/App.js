@@ -11,10 +11,13 @@ import { theme } from "./utils/theme";
 
 import './styles.scss';
 
+// const SOCKET_URL = 'https://cbs-scrum-poker-server.herokuapp.com';
+const SOCKET_URL = 'http://localhost:4101';
+
 const App = () => (
     <div className='app'>
         <StoreProvider store={ store }>
-            <SocketProvider>
+            <SocketProvider url={ SOCKET_URL }>
                 <ThemeProvider theme={ theme }>
                     <Router>
                         <Routes />

@@ -1,15 +1,19 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-// const SOCKET_URL = 'https://cbs-scrum-poker-server.herokuapp.com';
-const SOCKET_URL = 'http://localhost:4101';
-const SocketContext = createContext();
+const SocketContext = createContext({ socket: null, namespaces: [] });
 
-const SocketProvider = ({ children }) => {
-    const socket = io(SOCKET_URL);
+const SocketProvider = ({ children, url, options = {}, namespaces: namespacesProps = [] }) => {
+    const [socket, makeSocket] = useState(null);
+    const [namespaces, makeNamespaces] = useState([]);
+
+    useEffect(() => {
+        makeSocket(io(url, options));
+        makeNamespaces(namespacesProps);
+    }, []);
 
     return (
-        <SocketContext.Provider value={socket}>
+        <SocketContext.Provider value={{ socket, namespaces }}>
             {children}
         </SocketContext.Provider>
     );
