@@ -2,13 +2,14 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import qs from 'query-string';
 
 import CardsList from './components/CardsList';
 import PeopleList from './components/PeopleList';
+import NameModal from './components/NameModal';
 import { useSocket } from '../../hooks/useSocket';
 import { useEmit } from '../../hooks/useEmit';
 import { getRoomId, getPeople } from "../../redux/room/selectors";
@@ -31,6 +32,7 @@ const RoomScreen = () => {
     const people = useSelector(getPeople);
     const votingStarted = useSelector(isVoteStarted);
     const userDetails = useSelector(getUserDetails);
+    const [nameModalOpen, makeNameModalOpen] = useState(true);
 
     const queryParams = qs.parse(window.location.search);
 
@@ -50,6 +52,10 @@ const RoomScreen = () => {
     };
     const stopVotingHandler = () => {
         emit('show cards', roomId);
+    };
+
+    const nameSubmitHandler = (details) => {
+        emit('update user details', roomId, details);
     };
 
     const isAdmin = () => userDetails && userDetails.roles && userDetails.roles.includes('admin');
@@ -121,6 +127,11 @@ const RoomScreen = () => {
                     Leave
                 </Button>
             </div>
+            <NameModal
+                open={ nameModalOpen }
+                onClose={ () => { makeNameModalOpen(false); } }
+                onSubmit={ nameSubmitHandler }
+            />
         </Paper>
     );
 };
