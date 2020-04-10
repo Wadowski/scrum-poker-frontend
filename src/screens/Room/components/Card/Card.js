@@ -8,10 +8,23 @@ import classnames from 'classnames';
 
 import { useEmit } from '../../../../hooks/useEmit';
 import { getCardValue } from "../../../../redux/card/selectors";
-import { getRoomId, isVoteStarted } from "../../../../redux/room/selectors";
+import { getRoomId, isVoteStarted, getPeople } from "../../../../redux/room/selectors";
 import { updateChosenCard } from "../../../../redux/card/actions";
 
 import useStyle from './styles';
+
+const getMostCommonCard = (people) => {
+    let sum = 0;
+    let num = 0;
+    people.forEach(({ card }) => {
+        if (card && card.position) {
+            sum += card.position;
+            num += 1;
+        }
+    });
+
+    return Math.round(sum/num);
+};
 
 const Card = ({ value, position, disabled }) => {
     const emit = useEmit();
@@ -21,6 +34,7 @@ const Card = ({ value, position, disabled }) => {
     const chosenCardValue = useSelector(getCardValue);
     const roomId = useSelector(getRoomId);
     const voteStarted = useSelector(isVoteStarted);
+    const people = useSelector(getPeople);
 
     const isChosen = chosenCardValue === value;
 
@@ -42,7 +56,10 @@ const Card = ({ value, position, disabled }) => {
     );
 
     const disabledCard = () => (
-        <div className={ classes.content }>
+        <div className={ classnames({
+            [classes.content]: true,
+            [classes.notMatched]: position && getMostCommonCard(people) !== position,
+        }) }>
             <Typography variant='body2' component='p'>
                 {value}
             </Typography>

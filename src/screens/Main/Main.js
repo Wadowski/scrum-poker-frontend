@@ -45,7 +45,6 @@ const MainScreen = () => {
         }
     }, [socket]);
 
-
     return (
         <Paper elevation={ 3 } className={ classes.root }>
             <Typography variant="h2" component="h1">

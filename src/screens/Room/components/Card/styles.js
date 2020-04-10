@@ -24,6 +24,9 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: '#f0f0f0',
         color: '#9b9b9b',
     },
+    notMatched: {
+        backgroundColor: theme.palette.warning.main,
+    }
 }));
 
 export default useStyles;
