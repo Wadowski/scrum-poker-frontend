@@ -76,10 +76,11 @@ const RoomScreen = () => {
     };
 
     useEffect(() => {
-        if (emit) {
-            emit('update user details', roomId);
+        if (roomId === '0') {
+            emit('join room', queryParams.id);
+            emit('update user details', roomId, {});
         }
-    }, []);
+    }, [emit, roomId, queryParams.id]);
 
     useEffect(() => {
         if (socket) {
@@ -88,6 +89,13 @@ const RoomScreen = () => {
             socket.on('cards update', updatePeople);
             socket.on('room update', cardsUpdate);
             socket.on('vote status update', voteStatusUpdate);
+            socket.on('room joined successfully', (roomId) => {
+                dispatch(updateRoom({ id: roomId }));
+            });
+            socket.on('room not joined successfully', () => {
+                console.log('room not joined successfully');
+                history.push('/');
+            });
         }
     }, [socket]);
 

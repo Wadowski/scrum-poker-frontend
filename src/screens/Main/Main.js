@@ -28,10 +28,7 @@ const MainScreen = () => {
 
     const joinRoomHandler = () => {
         const sessionId = document.getElementById('session-id').value;
-
-        if (sessionId) {
-            emit('join room', sessionId);
-        }
+        history.push(`/room?id=${sessionId}`);
     };
 
     useEffect(() => {
