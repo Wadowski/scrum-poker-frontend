@@ -43,7 +43,7 @@ const RoomScreen = () => {
 
     const leaveHandler = () => {
         emit('leave room', roomId);
-        dispatch(updateRoom({}));
+        dispatch(updateRoom({ id: '0' }));
         dispatch(updateUserDetails({}));
         dispatch(updateChosenCard(0));
         history.push('/');
