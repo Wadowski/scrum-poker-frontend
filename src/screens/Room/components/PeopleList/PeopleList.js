@@ -14,6 +14,7 @@ const PeopleList = ({ people }) => {
             <Typography
                 component='p'
                 variant='h5'
+                className={ classes.peopleHeader }
             >
                 Votes summary
             </Typography>

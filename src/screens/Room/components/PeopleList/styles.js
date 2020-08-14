@@ -4,7 +4,10 @@ const useStyles = makeStyles(theme => ({
     peopleList: {
         display: 'flex',
         justifyContent: 'center',
-    }
+    },
+    peopleHeader: {
+        textAlign: 'center',
+    },
 }));
 
 export default useStyles;

@@ -8,6 +8,13 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         margin: '8px',
     },
+    personName: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    adminIcon: {
+        fill: 'gold',
+    },
 }));
 
 export default useStyles;
