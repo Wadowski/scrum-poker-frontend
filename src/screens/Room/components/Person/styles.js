@@ -15,6 +15,13 @@ const useStyles = makeStyles(theme => ({
     adminIcon: {
         fill: 'gold',
     },
+    adminAssignIcon: {
+        fill: 'lightgray',
+    },
+    adminAssignButton: {
+        padding: 0,
+        marginRight: '4px',
+    },
 }));
 
 export default useStyles;

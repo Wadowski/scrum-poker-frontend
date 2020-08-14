@@ -19,6 +19,7 @@ import { isVoteStarted } from "../../redux/room/selectors";
 import { updateRoom } from "../../redux/room/actions";
 import { updateUserDetails } from "../../redux/user/actions";
 import { getUserDetails } from "../../redux/user/selectors";
+import { isUserAdmin } from "../../utils/user";
 
 import useStyles from './styles';
 
@@ -58,8 +59,6 @@ const RoomScreen = () => {
     const nameSubmitHandler = (details) => {
         emit('update user details', roomId, details);
     };
-
-    const isAdmin = () => userDetails && userDetails.roles && userDetails.roles.includes('admin');
 
     const updatePeople = (people) => {
         dispatch(updateRoom({ people }));
@@ -107,7 +106,7 @@ const RoomScreen = () => {
             <Typography component="h6" variant="h6" className={ classes.header }>
                 Room number {roomId}
             </Typography>
-            {isAdmin() &&
+            {isUserAdmin(userDetails) &&
             <ButtonGroup>
                 <Button
                     variant="contained"
